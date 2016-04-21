@@ -12,22 +12,23 @@ def Parent(index):
 def MaxHeapify(tree, size, index):
 	left = Left(index)
 	right = Right(index)
-	print left, right
-	if left <= size and tree[left] > tree[index]:
+	print left, size, tree
+	print (left < size)
+	if left < size and tree[left] > tree[index]:
 		largest = left
 	else:
 		largest = index
-	if right <= size and tree[right] > tree[largest]:
+	if right < size and tree[right] > tree[largest]:
 		largest = right
 	if largest != index:
 		tree[index], tree[largest] = tree[largest], tree[index]
 		MaxHeapify(tree, size, largest)
 
 def BuildMaxHeap(tree):
-	k = (len(tree)/2 )-1
-	while k>0:
-		MaxHeapify(tree,len(tree),k)
-		k -= 1
+	k = (len(tree)//2 ) -1
+	for i in range(k, -1, -1):
+		MaxHeapify(tree, len(tree), i)
+	
 
 
 def Sort(items):
@@ -35,11 +36,11 @@ def Sort(items):
 	size = len(items)
 	for i in range(len(items) - 1, 0, -1):
 		items[0], items[i] = items[i], items[0]
-		MaxHeapify(items, size-1, 1)
+		MaxHeapify(items, i, 0)
 	return items
 
 def main():
-	li = [0, 16, 4, 10, 1, 23]
+	li = [0, 16, 4, 10, 1, 23, 12, 5, 7, 2, 3, 5, 61, 3, 9, 12]
 	print Sort(li)
 
 
