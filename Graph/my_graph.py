@@ -56,7 +56,7 @@ F = Node('F')
 nodes = {'A': A, 'B': B, 'C': C, 'D': D, 'E': E, 'F': F}
 connections = [(A, B), (B, C), (B, D), (C, D), (E, F), (F, C)]
 
-g = MyGraph(connections)
+g = MyGraph(connections, True)
 
 infi = 999999999999999
 
