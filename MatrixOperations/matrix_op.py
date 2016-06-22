@@ -66,11 +66,28 @@ def lup_descomposition(A):
                 A[i][j] = A[i][j] - (A[i][k] * A[k][j])
 
 
+def lu_decomposition(A):
+    n = A.rows
+    L = Matrix(n, n)
+    U = Matrix(n, n)
+    for i in xrange(n):
+        for j in xrange(n):
+            if i == j:
+                L[i][j] = float(1)
+    for k in range(n):
+        U[k][k] = A[k][k]
+        for i in range(k+1, n):
+            L[i][k] = float(A[i][k])/float(U[k][k])
+            U[k][i] = A[k][i]
+        for i in range(k+1, n):
+            for j in range(k+1, n):
+                A[i][j] = A[i][j] - (L[i][k]*U[k][j])
+    return L, U
+
 A = Matrix(4, 4)
 A.array = [[2, 0, 2, 0.6], [3, 3, 4, -2], [5, 5, 4, 2], [-1, -2, 3.4, -1]]
-A.print_mat()
+A.array = [[2, 3, 1, 5], [6, 13, 5, 19], [2, 19, 10, 23], [4, 10, 11, 31]]
 print
-lup_descomposition(A)
-print
-print
-A.print_mat()
+U, L = lu_decomposition(A)
+print U.print_mat()
+print L.print_mat()
