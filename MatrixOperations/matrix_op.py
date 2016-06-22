@@ -37,9 +37,18 @@ class Matrix(object):
 
 def lup_solve(L, U, pi, b, y):
     n = L.rows
-    x = []
+    x = [1] * n
+    y = [1] * n
     for i in n:
-        pass
+        sum = 0
+        for j in range(i-1):
+            sum += (L[i][j] * y[j])
+        y[i] = b[pi[i]] - sum
+    for i in reversed(range(n)):
+        sum = 0
+        for j in range(i+1, n):
+            sum += (U[i][j] * x[j])
+        x[i] = float((y[i] - sum)) / float(U[i][i])
 
 
 def lup_descomposition(A):
@@ -83,6 +92,7 @@ def lu_decomposition(A):
             for j in range(k+1, n):
                 A[i][j] = A[i][j] - (L[i][k]*U[k][j])
     return L, U
+
 
 A = Matrix(4, 4)
 A.array = [[2, 0, 2, 0.6], [3, 3, 4, -2], [5, 5, 4, 2], [-1, -2, 3.4, -1]]
